@@ -62,7 +62,7 @@ html { overflow-x: clip; -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
 body {
   margin: 0;
   min-height: 100vh;
-  min-height: 100dvh;
+  min-height: 100svh;   /* stable: dvh changes while the phone address bar moves, re-laying out the page mid-scroll */
   display: flex;
   flex-direction: column;
   background: var(--forest-850);
@@ -103,7 +103,17 @@ ul, ol { padding: 0; }
    SCENE (fixed backdrop). Each stage mimics a cover-cropped image so that
    signs positioned in % of the stage stay planted on the same patch of ground.
    ========================================================================== */
-.backdrop { position: fixed; inset: 0 0 var(--bar-h) 0; z-index: -1; overflow: hidden; background: var(--forest-900); }
+/* Sized to the LARGEST viewport height (lvh), not the current one. On phones the address
+   bar collapses and expands while scrolling, which changes the current viewport height on
+   every frame; a box tied to it (with a cover background) was being rescaled each frame,
+   which made the scene jitter. lvh stays constant, so the scene never moves. */
+.backdrop {
+  position: fixed; left: 0; right: 0; top: 0; z-index: -1; overflow: hidden;
+  height: calc(100vh - var(--bar-h));
+  height: calc(100lvh - var(--bar-h));
+  background: var(--forest-900);
+  transform: translateZ(0); backface-visibility: hidden;   /* own compositor layer: no repaint while scrolling */
+}
 .stage {
   position: absolute;
   left: 50%; top: 50%;
