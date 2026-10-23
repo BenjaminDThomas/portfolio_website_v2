@@ -17,6 +17,8 @@ Each section represents a different stage of a journey, using scenic environment
 
 The website is designed for both desktop and mobile, with responsive layouts and mobile-specific navigation.
 
+Each route opens on its own rather than as one long scrolling page. A trail-style navbar shows where you are, every route ends with a "Next stop" button, and on mobile a bottom bar moves between routes. Routes have their own links (for example `#/projects/22-club`), so the browser Back button and shared links work.
+
 ## Project Objectives
 
 - Create a distinctive visual identity that reflects my creativity and interests.
@@ -63,7 +65,7 @@ Introduces my background in Web Design, Development & Analytics, alongside my in
 
 ### Workflow — From Research to Results
 
-A visual overview of my approach to digital projects, organised into nine adaptable stages:
+A visual overview of my approach to digital projects, organised into eight adaptable stages, each selectable on an interactive trail:
 
 1. **Discover** — Understand the brief, goals, stakeholders and requirements.
 2. **Research** — Explore user needs, existing solutions and opportunities.
@@ -71,9 +73,8 @@ A visual overview of my approach to digital projects, organised into nine adapta
 4. **Ideate** — Explore concepts, sketches and possible solutions.
 5. **Design** — Create wireframes, prototypes and accessible interfaces.
 6. **Test** — Evaluate usability, gather feedback and refine solutions.
-7. **Develop** — Implement responsive interfaces and functionality.
-8. **Launch** — Conduct final checks, deploy and document the solution.
-9. **Measure & Improve** — Review performance, feedback and future opportunities.
+7. **Build** — Implement responsive interfaces and functionality.
+8. **Launch & improve** — Deploy, run final checks, then review performance and feedback for further improvements.
 
 The process is flexible and adapts to each project's requirements rather than following a rigid sequence.
 
