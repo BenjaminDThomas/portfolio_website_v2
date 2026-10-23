@@ -71,6 +71,14 @@
     }).join("");
     return '<div class="links">' + html + (notes.length ? '<p class="link-note">' + esc(notes.join(" ")) + "</p>" : "") + "</div>";
   }
+  function cardLinks(all) {
+    var hasHifi = all.some(function (l) { return /high-fidelity/i.test(l.label); });
+    return hasHifi ? all.filter(function (l) { return !/wireframe/i.test(l.label); }) : all;
+  }
+  function moreLinks(all, shown, word) {
+    var n = all.length - shown;
+    return n > 0 ? '<p class="link-note">' + n + " more " + (word ? word + " " : "") + "link" + (n > 1 ? "s" : "") + " in the full case study.</p>" : "";
+  }
   function list(items, cls) {
     if (!items || !items.length) return "";
     return '<ul class="' + (cls || "text-list") + '">' + items.map(function (t) { return "<li>" + esc(t) + "</li>"; }).join("") + "</ul>";
@@ -153,14 +161,28 @@
       if (tl.classList.contains("wf-stops")) return;
       var tabs = $$('[role="tab"]', tl);
       function select(tab, focus) {
+        // Switching to a shorter panel shrinks the page; if you had scrolled down, the
+        // browser then pulls the view up ("jumps to the top"). Keep the tab bar where it
+        // was, and hold the old height when needed so nothing moves.
+        var sc = tl.closest(".drawer-body"), before = tl.getBoundingClientRect().top, oldH = 0, next = null;
+        tabs.forEach(function (t) {
+          var p = document.getElementById(t.getAttribute("aria-controls"));
+          if (p && !p.hidden) oldH = p.offsetHeight;
+        });
         tabs.forEach(function (t) {
           var on = t === tab;
           t.setAttribute("aria-selected", on ? "true" : "false");
           t.tabIndex = on ? 0 : -1;
           var p = document.getElementById(t.getAttribute("aria-controls"));
-          if (p) { p.hidden = !on; if (on) animateIn(p, "is-shown"); }
+          if (p) { p.hidden = !on; p.style.minHeight = ""; if (on) { next = p; animateIn(p, "is-shown"); } }
         });
-        if (focus) tab.focus();
+        var moved = tl.getBoundingClientRect().top - before;
+        if (Math.abs(moved) > 1 && next) {
+          if (next.offsetHeight < oldH) next.style.minHeight = oldH + "px";
+          moved = tl.getBoundingClientRect().top - before;
+          if (sc) sc.scrollTop += moved; else window.scrollBy(0, moved);
+        }
+        if (focus) tab.focus({ preventScroll: true });
       }
       tabs.forEach(function (tab, i) {
         tab.addEventListener("click", function () { select(tab, false); });
@@ -331,63 +353,6 @@
       var n = (self.index + d + self.visible.length) % self.visible.length;
       self.select(n, { refocus: '[data-goto="' + n + '"]', dir: d });
     });
-    // Drag the card sideways (finger, pen or mouse) to change entry.
-    // .summary has touch-action: pan-y, so horizontal gestures reach this code
-    // while vertical scrolling stays native.
-    var drag = null, blockClick = false;
-    var noDrag = "a, button, summary, select, input, .tabs, .links, details[open] > *:not(summary)";
-    this.cardEl.addEventListener("pointerdown", function (e) {
-      if (e.button !== 0 || e.target.closest(noDrag) || !e.target.closest(".summary-body")) return;
-      drag = { x: e.clientX, y: e.clientY, id: e.pointerId, active: false };
-    });
-    this.cardEl.addEventListener("pointermove", function (e) {
-      if (!drag || e.pointerId !== drag.id) return;
-      var dx = e.clientX - drag.x, dy = e.clientY - drag.y;
-      if (!drag.active) {
-        if (Math.abs(dy) > 12 && Math.abs(dy) > Math.abs(dx)) { drag = null; return; }
-        if (Math.abs(dx) < 12) return;
-        drag.active = true;
-        self.cardEl.classList.add("is-dragging");
-        try { self.cardEl.setPointerCapture(e.pointerId); } catch (err) { /* ignore */ }
-        if (window.getSelection) window.getSelection().removeAllRanges();
-      }
-      var body = $(".summary-body", self.cardEl);
-      var edge = self.visible.length < 2;
-      if (!reduceMotion.matches) {
-        body.style.transform = "translateX(" + (edge ? dx * 0.2 : dx * 0.6) + "px)";
-        body.style.opacity = String(1 - Math.min(0.35, Math.abs(dx) / 600));
-      }
-    });
-    function endDrag(e) {
-      if (!drag || e.pointerId !== drag.id) return;
-      var dx = e.clientX - drag.x, was = drag.active;
-      drag = null;
-      self.cardEl.classList.remove("is-dragging");
-      var body = $(".summary-body", self.cardEl);
-      if (!was) { if (body) { body.style.transform = ""; body.style.opacity = ""; } return; }
-      blockClick = true; setTimeout(function () { blockClick = false; }, 0);
-      var go = Math.abs(dx) > 60 && self.visible.length > 1;
-      if (!body || reduceMotion.matches) {
-        if (body) { body.style.transform = ""; body.style.opacity = ""; }
-        if (go) self.step(dx < 0 ? 1 : -1);
-        return;
-      }
-      if (go) {
-        // finish the gesture: glide out in the swipe direction, then the next entry glides in
-        body.style.transition = "transform 0.16s ease-in, opacity 0.16s ease-in";
-        body.style.transform = "translateX(" + (dx < 0 ? -36 : 36) + "%)";
-        body.style.opacity = "0";
-        setTimeout(function () { self.step(dx < 0 ? 1 : -1); }, 150);
-      } else {
-        // not far enough: ease back into place
-        body.style.transition = "transform 0.25s cubic-bezier(0.22, 0.61, 0.36, 1), opacity 0.25s";
-        body.style.transform = ""; body.style.opacity = "";
-        setTimeout(function () { body.style.transition = ""; }, 260);
-      }
-    }
-    this.cardEl.addEventListener("pointerup", endDrag);
-    this.cardEl.addEventListener("pointercancel", endDrag);
-    this.cardEl.addEventListener("click", function (e) { if (blockClick) { e.preventDefault(); e.stopPropagation(); } }, true);
     var stripDrag = { x: 0, left: 0, id: null, moved: false };
     this.listEl.addEventListener("pointerdown", function (e) {
       if (e.pointerType !== "mouse" || e.button !== 0 || desktopMq.matches) return;
@@ -434,6 +399,13 @@
     var target = i === 0 ? 0 : li.offsetLeft - Math.max(pad, (L.clientWidth - li.offsetWidth) / 2);
     L.scrollTo({ left: Math.max(0, target), behavior: smooth() });
   };
+  /* The trail is lit from Start to the entry you are on (vertical list and sign strip) */
+  Explorer.prototype.lightPath = function () {
+    var b = $$(".pick", this.listEl)[this.index], li = b && b.parentNode;
+    if (!li) return;
+    this.listEl.style.setProperty("--lit-y", Math.round(li.offsetTop + li.offsetHeight / 2) + "px");
+    this.listEl.style.setProperty("--lit-x", Math.round(li.offsetLeft + 20) + "px");
+  };
   Explorer.prototype.setVisible = function (items) {
     var cur = this.visible[this.index] && this.visible[this.index].id;
     this.visible = items;
@@ -476,8 +448,10 @@
     $$(".pick", this.listEl).forEach(function (b, bi) {
       b.setAttribute("aria-current", bi === i ? "true" : "false");
       b.parentNode.classList.toggle("is-current", bi === i);
+      b.parentNode.classList.toggle("is-passed", bi < i);
     });
     this.revealPick(i);
+    this.lightPath();
     $(".pc-current", this.root).textContent = pad(i + 1);
     // Keep the card's top edge where it is so switching never jumps the page
     var before = this.cardEl.getBoundingClientRect().top;
@@ -529,14 +503,14 @@
     var skills = p.skills.map(function (s, k) { return "<li" + (k >= 6 ? ' class="is-extra" hidden' : "") + ">" + esc(s) + "</li>"; }).join("") +
       (extra > 0 ? '<li class="more-li"><button type="button" class="skills-more" aria-expanded="false" data-count="' + extra + '"><span class="skills-more-label">+' + extra + " more</span>" + icon("chev-d") + "</button></li>" : "");
     var wide = p.layout === "analytics";
-    var extraLinks = p.links.length > 3 ? '<p class="link-note">' + (p.links.length - 3) + " more link" + (p.links.length - 3 > 1 ? "s" : "") + " in the full case study.</p>" : "";
+    var cl = cardLinks(p.links), extraLinks = moreLinks(p.links, Math.min(3, cl.length));
     return '<div class="sum-top"><p class="sum-date">' + icon("flag") + "<span>" + dateRange(p.start, p.end) + "</span>" + (p.end ? "" : '<span class="live-dot" aria-hidden="true"></span><span class="visually-hidden">, in progress</span>') + "</p></div>" +
       '<h2 class="sum-title" id="project-card-title" tabindex="-1" data-card-title>' + esc(p.title) + "</h2>" +
       '<p class="sum-meta">' + meta.join("") + "</p>" +
       '<div class="sum-grid' + (wide ? " sum-grid--analytics" : "") + '">' +
-      '<figure class="sum-figure' + (wide ? " sum-figure--wide" : "") + '"><img src="' + esc(p.image.src) + '" ' + srcset(p.image.src, wide ? "(min-width: 1100px) 760px, 92vw" : "(min-width: 1100px) 340px, (min-width: 720px) 42vw, 92vw") + ' width="' + p.image.width + '" height="' + p.image.height + '" alt="' + esc(p.image.alt) + '" decoding="async"></figure>' +
+      '<figure class="sum-figure' + (wide ? " sum-figure--wide" : "") + '"><img src="' + esc(p.image.src) + '" ' + srcset(p.image.src, wide ? "(min-width: 1100px) 760px, 92vw" : "(min-width: 1100px) 340px, (min-width: 720px) 42vw, 92vw") + ' width="' + p.image.width + '" height="' + p.image.height + '" alt="' + esc(p.image.alt) + '" loading="lazy" decoding="async"></figure>' +
       '<div><p class="sum-short">' + esc(p.short) + "</p>" + checks(projectHighlights(p), "sum-list") + "</div></div>" +
-      '<div class="sum-actions">' + links(p.links, { compact: true, limit: 3 }) + extraLinks +
+      '<div class="sum-actions">' + links(cl, { compact: true, limit: 3 }) + extraLinks +
       '<button type="button" class="case-btn">' + icon("panel") + "<span>Read the full case study</span>" + icon("arrow-r", "case-arrow") + "</button></div>" +
       '<ul class="sum-skills" aria-label="Skills and tools">' + skills + "</ul>";
   }
@@ -629,15 +603,17 @@
       ' responsibilities</span><span class="sa-open">Hide full list</span>' + icon("chev-d") + "</summary>" + list(x.responsibilities, "text-list text-list--cols") + "</details>" : "");
     var skills = (x.skillGroups || []).map(function (g) { return block(g.heading, chips(g.items)); }).join("") +
       (x.skillGroups && x.skillGroups.length > 1 ? '<p class="note-box">Design, research and evaluation skills are my own. The implementation stack was produced with AI assistance under my direction and review.</p>' : "");
-    var more = x.links && x.links.length > 3 ? '<p class="link-note">' + (x.links.length - 3) + " more design link" + (x.links.length - 3 > 1 ? "s" : "") + " in the full case study.</p>" : "";
-    var actions = (x.links && x.links.length) || x.features ? '<div class="sum-actions">' + links(x.links, { compact: true, limit: 3 }) + more +
+    var xl = cardLinks(x.links || []), more = moreLinks(x.links || [], Math.min(3, xl.length), "design");
+    var actions = (x.links && x.links.length) || x.features ? '<div class="sum-actions">' + links(xl, { compact: true, limit: 3 }) + more +
       (x.features ? '<button type="button" class="case-btn">' + icon("panel") + "<span>Read the full case study</span>" + icon("arrow-r", "case-arrow") + "</button>" : "") + "</div>" : "";
     return '<div class="sum-top"><p class="sum-date">' + icon("backpack") + "<span>" + esc(x.type) + "</span></p></div>" +
       '<h2 class="exp-title" id="experience-card-title" tabindex="-1" data-card-title>' + esc(x.displayName) + "</h2>" +
-      '<p class="exp-role">' + esc(x.role) + "</p>" +
+      '<p class="exp-role"><span class="exp-role-label">Job title</span><span class="exp-role-name">' + esc(x.role) + "</span></p>" +
       '<p class="sum-meta exp-meta"><span>' + icon("flag") + dateRange(x.start, x.end) + "</span>" +
       (!x.end && x.expectedEnd ? "<span>" + icon("target") + "Expected completion " + monthYear(x.expectedEnd) + "</span>" : "") +
-      (org ? "<span>" + icon("map") + esc(org) + "</span>" : "") + "</p>" +
+      (org ? "<span>" + icon("map") + esc(org) + "</span>" : "") +
+      (x.location ? "<span>" + icon("map") + esc(x.location) + "</span>" : "") +
+      (x.hours ? "<span>" + icon("briefcase") + esc(x.hours) + "</span>" : "") + "</p>" +
       (x.context ? '<p class="exp-context">' + esc(x.context) + "</p>" : "") + actions +
       tabBar(id, "Role details", defs) + tabPanel(id, "overview", overview, true) + tabPanel(id, "highlights", highlights) + tabPanel(id, "skills", skills);
   }
@@ -828,6 +804,8 @@
     else contactGrid.classList.add("is-stacked");
   }
   window.addEventListener("resize", fitFinish);
+  window.addEventListener("resize", function () { projects.lightPath(); experience.lightPath(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(function () { projects.lightPath(); experience.lightPath(); });
   if (document.fonts && document.fonts.ready) document.fonts.ready.then(fitFinish);
 
   /* ---------------------------------------------------------------- contact: Email me
@@ -1023,6 +1001,8 @@
     }
     if (route === "workflow") requestAnimationFrame(workflow.draw);
     if (route === "contact") requestAnimationFrame(fitFinish);
+    if (route === "projects") requestAnimationFrame(function () { projects.lightPath(); });
+    if (route === "experience") requestAnimationFrame(function () { experience.lightPath(); });
     if (changed && userNav) animateIn($('[data-view="' + route + '"]'));
     if (userNav && !state.caseOpen) {
       var target = focusEl || $('[data-view="' + route + '"] .route-title');
@@ -1032,7 +1012,8 @@
     updateScroll();
     var idx = ROUTES.indexOf(route);
     var idle = window.requestIdleCallback || function (fn) { return setTimeout(fn, 400); };
-    idle(function () { [ROUTES[idx - 1], ROUTES[idx + 1]].forEach(function (r) { if (r) loadStage(r); }); });
+    function warm() { idle(function () { [ROUTES[idx - 1], ROUTES[idx + 1]].forEach(function (r) { if (r) loadStage(r); }); }, { timeout: 4000 }); }
+    if (document.readyState === "complete") warm(); else window.addEventListener("load", function () { setTimeout(warm, 1500); }, { once: true });
   }
   function openCaseFromState(state) {
     var ex = state.route === "projects" ? projects : state.route === "experience" ? experience : null;
@@ -1104,7 +1085,6 @@
       if (el.matches('a[target="_blank"]')) return "New tab";
       if (el.matches(".wf-card")) return "See example";
       if (el.matches('a[href^="#/"]')) return "Go there";
-      if (el.matches(".summary-body")) return "Drag card";
       return "";
     }
     function place(x, y) {
@@ -1119,10 +1099,10 @@
     }
     document.addEventListener("pointermove", function (e) {
       if (e.pointerType !== "mouse") return;
-      var el = e.target.closest && e.target.closest('[data-hint], a[href], button:not(:disabled), summary, .summary-body');
+      var el = e.target.closest && e.target.closest('[data-hint], a[href], button:not(:disabled), summary');
       var label = el && !el.closest(".cursor-hint") ? words(el) : "";
       if (label !== last) { text.textContent = label; last = label; }
-      hint.classList.toggle("is-on", !!label && !document.querySelector(".summary.is-dragging"));
+      hint.classList.toggle("is-on", !!label);
       if (label) place(e.clientX, e.clientY);
     }, { passive: true });
     document.addEventListener("pointerleave", function () { hint.classList.remove("is-on"); });

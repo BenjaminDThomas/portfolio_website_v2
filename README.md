@@ -1,56 +1,80 @@
-# portfolio_website_v2
-A creative, responsive UX/UI portfolio inspired by cycling and outdoor exploration, showcasing my design process, front-end development, professional experience and data-driven projects.
+# Benjamin Thomas | UX/UI Portfolio
 
-# Creative UX/UI Portfolio — Benjamin Thomas
+**UX/UI Design · Front-End Development · Data Analytics**
 
-**UX/UI Design | Front-End Development | Data Analytics**
+A responsive personal portfolio themed around cycling and the outdoors. Each section of the site is a stop on a trail: visitors choose a route, move between stops, and finish at the contact page.
 
-A creative, responsive personal portfolio inspired by cycling, mountain landscapes and outdoor exploration. The website presents my professional experience, technical skills, projects and design workflow through an interactive, journey-themed interface.
+**Live site:** [benjamin-thomas-portfolio-website.netlify.app](https://benjamin-thomas-portfolio-website.netlify.app/)
 
-The portfolio combines visual storytelling with user-centred design principles to create an engaging experience while allowing recruiters, employers and collaborators to explore my work.
+## What's on the site
 
-## Project Overview
+| Route | What it shows |
+| --- | --- |
+| Home (Trailhead) | Introduction and a "Choose your route" menu |
+| 01 Projects | Eight projects, filterable by UX/UI & Web Design, Product & SaaS, and Data & Analytics, each with a summary card and a full case study |
+| 02 Experience | Movement to Work, Ergometric and Garswood Vehicle Solutions, with job title, dates, location, highlights and skills |
+| 03 About | Background, education, key skills and interests |
+| 04 Workflow | An eight-stage process (Discover to Launch), with real examples from my work at each stage |
+| Contact (The finish) | Email, LinkedIn, GitHub and phone, with one-click copy for email and phone |
 
-This portfolio was designed to move beyond a conventional project-gallery layout by introducing a distinctive outdoor adventure theme.
+### Projects
 
-Each section represents a different stage of a journey, using scenic environments, wooden navigation elements, illustrated trails and interactive content to connect my projects, professional experience and approach to problem-solving.
+- Outdoor-Inspired Digital Portfolio (this site)
+- Digital Native: Global Games Sales Executive Dashboard
+- Data Analyst Interactive Portfolio
+- GetFitnessMode: Fitness and Training Platform
+- Digital Museum of Tomorrow (collaborative)
+- UX/UI and Front-End Portfolio: Original Version
+- 22 Club: UX Redesign and Website Performance Optimisation
+- Student Magazine: End-to-End UX/UI Design
 
-The website is designed for both desktop and mobile, with responsive layouts and mobile-specific navigation.
+## How it works
 
-Each route opens on its own rather than as one long scrolling page. A trail-style navbar shows where you are, every route ends with a "Next stop" button, and on mobile a bottom bar moves between routes. Routes have their own links (for example `#/projects/22-club`), so the browser Back button and shared links work.
+- **One route at a time.** Each section opens on its own rather than as one long page. Routes have their own links (for example `#/projects/22-club` or `#/projects/22-club/case`), so shared links, the browser Back button and refreshing all work.
+- **Trail navigation.** On desktop, a trail-style navbar shows where you are, and a fixed bar at the bottom keeps Previous stop and Next stop in the same place on every page. On mobile, a menu and a miniature trail bar do the same job.
+- **Explorers.** Projects and Experience use a timeline of wooden signs and a summary card with Previous and Next buttons that loop at either end. Full case studies open in a panel that closes with Back, Escape or the close button.
+- **No framework.** Plain HTML, CSS and JavaScript, with no build step or dependencies.
 
-## Project Objectives
+## Structure
 
-- Create a distinctive visual identity that reflects my creativity and interests.
-- Showcase UX/UI, front-end development and analytical capabilities.
-- Present projects and professional experience clearly to potential employers.
-- Make project descriptions, skills and external links easy to access.
-- Deliver an intuitive, accessible and responsive experience.
-- Demonstrate a structured process from initial research through design and implementation.
+```
+index.html         Page markup: header, routes, navigation bars, case-study panel
+css/styles.css     All styles, including responsive layouts and reduced-motion rules
+js/data.js         Content: projects, experience, workflow, about and skills
+js/main.js         Routing, navigation, explorers, case studies, workflow, copy actions
+fonts/             Self-hosted Carter One, Caveat Brush and Inter (SIL Open Font License)
+images/bg/         Scene backgrounds, sized per screen: desktop, tablet and phone
+images/projects/   Project screenshots, with smaller -640 versions for phones
+images/ui/         Signs, brush strokes, paper notes and icons
+```
 
-## Website Sections
+To update content, edit `js/data.js`. Projects, roles and workflow stages are all generated from it.
 
-### Home — The Beginning
+## How it was built
 
-Introduces the portfolio through an immersive cycling and mountain-inspired environment, allowing visitors to navigate between sections of the website.
+- **Designed in Figma.** Desktop and mobile layouts, the visual direction and the components were designed first in Figma.
+- **Developed with AI assistance.** The front end was built with AI assistance (Claude) under my direction. I set the requirements, reviewed the output, tested it and made the design decisions throughout.
+- **Tested** with Google Lighthouse, an automated browser test suite (Playwright) and manual checks at phone, tablet and desktop sizes.
 
-### Projects — Work Along the Way
+## Accessibility and performance
 
-A collection of personal, academic and collaborative projects covering UX/UI design, front-end development, data analysis and digital product development.
+- Semantic HTML, a skip link, visible focus states and full keyboard support, including arrow keys in tabs, lists and the workflow trail
+- Clear accessible names for every control, plus live announcements when content changes or details are copied
+- Touch targets of at least 44px, and reduced-motion support that keeps short fades but removes sliding and parallax
+- Responsive WebP images sized for each screen, lazy-loaded where they're off screen, and self-hosted, subset fonts
 
-Projects include:
+**Lighthouse (October 2026):**
 
-- 22 Club — Website Redesign
-- Student Magazine — UX Research & Design
-- GetFitnessMode — Fitness SaaS Platform
-- Digital Native — Games Sales Dashboard
-- Digital Museum of Tomorrow — Collaborative Development
-- Personal Portfolio — Creative Website Development
+| | Performance | Accessibility | Best Practices | SEO |
+| --- | --- | --- | --- | --- |
+| Desktop | 99 | 100 | 100 | 100 |
+| Mobile | 87–88 | 100 | 100 | 100 |
 
-Project views provide summaries, relevant skills, supporting materials and links to live websites or source repositories where available.
+Mobile figures are from Lighthouse's simulated slow-phone test with text compression enabled, as Netlify serves the site.
 
-### Experience — Professional Journey
+## Deployment
 
+<<<<<<< Updated upstream
 Presents my work and practical experience, including:
 
 - Movement to Work — UX/UI Designer & Front-End Developer
@@ -178,13 +202,20 @@ The project also builds upon lessons from my previous portfolio, with a stronger
 ## Live Website
 
 [View My Portfolio](https://benjamin-thomas-portfolio-website.netlify.app/)
+=======
+Hosted on Netlify as a static site. No build command is needed: publish the repository root.
+>>>>>>> Stashed changes
 
 ## Author
 
-**Benjamin Thomas**
+**Benjamin Thomas**, UX/UI Designer and Front-End Developer, Lancashire, UK
 
+<<<<<<< Updated upstream
 UX/UI Designer | Front-End Developer | Data Analytics
 
 [GitHub](https://github.com/BenjaminDThomas)
 
 *Designed as a journey through my work, experience and creative development.*
+=======
+[LinkedIn](https://www.linkedin.com/in/benjamin-david-thomas/) · [GitHub](https://github.com/BenjaminDThomas)
+>>>>>>> Stashed changes

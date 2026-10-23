@@ -9,20 +9,30 @@
 <meta property="og:type" content="website">
 <meta property="og:title" content="Benjamin Thomas | UX/UI Designer and Front-End Developer">
 <meta property="og:description" content="Explore my projects, experience and design process by following the route.">
-<meta property="og:image" content="images/projects/new_portfolio_homepage.webp">
+<link rel="canonical" href="https://benjamin-thomas-portfolio-website.netlify.app/">
+<meta property="og:url" content="https://benjamin-thomas-portfolio-website.netlify.app/">
+<meta property="og:site_name" content="Benjamin Thomas Portfolio">
+<meta property="og:locale" content="en_GB">
+<meta property="og:image" content="https://benjamin-thomas-portfolio-website.netlify.app/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="The portfolio home page: Benjamin Thomas, UX/UI designer, with a Choose your route sign on a mountain trail.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Benjamin Thomas | UX/UI Designer and Front-End Developer">
+<meta name="twitter:description" content="Explore my projects, experience and design process by following the route.">
+<meta name="twitter:image" content="https://benjamin-thomas-portfolio-website.netlify.app/images/og-image.jpg">
 <link rel="icon" href="images/ui/favicon.svg" type="image/svg+xml">
 <script>document.documentElement.className = "js";</script>
 <link rel="preload" href="fonts/carter-one-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/inter-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="fonts/caveat-brush-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" as="image" href="images/bg/m-hero.webp" imagesrcset="images/bg/m-hero.webp 1x, images/bg/m-hero-1080.webp 2x" media="(max-aspect-ratio: 5/8)">
-<link rel="preload" as="image" href="images/bg/t-hero-1200.webp" media="(max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (max-width: 899px) and (max-resolution: 1.49dppx)">
-<link rel="preload" as="image" href="images/bg/t-hero-1536.webp" media="(max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (min-width: 900px), (max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (min-resolution: 1.5dppx)">
-<link rel="preload" as="image" href="images/bg/hero-1440.webp" media="(min-aspect-ratio: 1/1) and (max-width: 1440px) and (max-resolution: 1.49dppx)">
-<link rel="preload" as="image" href="images/bg/hero-1920.webp" media="(min-aspect-ratio: 1/1) and (min-width: 1441px) and (max-width: 1920px) and (max-resolution: 1.49dppx)">
-<link rel="stylesheet" href="css/styles.css?v=430a5882">
+<link rel="preload" as="image" href="images/bg/m-hero.webp" imagesrcset="images/bg/m-hero.webp 2x, images/bg/m-hero-1080.webp 3x" media="(max-aspect-ratio: 5/8)" fetchpriority="high">
+<link rel="preload" as="image" fetchpriority="high" href="images/bg/t-hero-1200.webp" media="(max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (max-width: 899px) and (max-resolution: 1.49dppx)">
+<link rel="preload" as="image" fetchpriority="high" href="images/bg/t-hero-1536.webp" media="(max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (min-width: 900px), (max-aspect-ratio: 1/1) and (min-aspect-ratio: 5/8) and (min-resolution: 1.5dppx)">
+<link rel="preload" as="image" fetchpriority="high" href="images/bg/hero-1440.webp" media="(min-aspect-ratio: 1/1) and (max-width: 1440px) and (max-resolution: 1.49dppx)">
+<link rel="preload" as="image" fetchpriority="high" href="images/bg/hero-1920.webp" media="(min-aspect-ratio: 1/1) and (min-width: 1441px) and (max-width: 1920px) and (max-resolution: 1.49dppx)">
+<link rel="stylesheet" href="css/styles.css?v=8cbcdc9d">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"Person","name":"Benjamin Thomas","jobTitle":"UX/UI Designer and Front-End Developer","address":{"@type":"PostalAddress","addressRegion":"Lancashire","addressCountry":"GB"},"email":"mailto:benthoma0s03@gmail.com","sameAs":["https://www.linkedin.com/in/benjamin-david-thomas/","https://github.com/BenjaminDThomas"]}
+{"@context":"https://schema.org","@type":"Person","name":"Benjamin Thomas","url":"https://benjamin-thomas-portfolio-website.netlify.app/","jobTitle":"UX/UI Designer and Front-End Developer","address":{"@type":"PostalAddress","addressRegion":"Lancashire","addressCountry":"GB"},"email":"mailto:benthoma0s03@gmail.com","sameAs":["https://www.linkedin.com/in/benjamin-david-thomas/","https://github.com/BenjaminDThomas"]}
 </script>
 </head>
 <body data-route="home">
@@ -78,19 +88,19 @@
     <nav class="home-routes" aria-labelledby="routes-title">
       <h2 id="routes-title" class="routes-title"><span class="plank-sign"><svg class="icon" aria-hidden="true" focusable="false"><use href="#bike"></use></svg><span>Choose your route</span></span></h2>
       <ol class="route-cards" role="list"><li><a class="route-card" href="#/projects">
-          <span class="route-card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#mountain"></use></svg></span>
+          <span class="route-card-icon"><svg class="route-card-ring" aria-hidden="true" focusable="false"><use href="#ring-sketch"></use></svg><svg class="icon" aria-hidden="true" focusable="false"><use href="#mountain"></use></svg></span>
           <span class="route-card-text"><span class="route-card-no">Route 01</span><span class="route-card-title">Projects</span><span class="route-card-desc">Case studies and builds</span></span>
           <svg class="icon route-card-chev" aria-hidden="true" focusable="false"><use href="#chev-r"></use></svg>
         </a></li><li><a class="route-card" href="#/experience">
-          <span class="route-card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#backpack"></use></svg></span>
+          <span class="route-card-icon"><svg class="route-card-ring" aria-hidden="true" focusable="false"><use href="#ring-sketch"></use></svg><svg class="icon" aria-hidden="true" focusable="false"><use href="#backpack"></use></svg></span>
           <span class="route-card-text"><span class="route-card-no">Route 02</span><span class="route-card-title">Experience</span><span class="route-card-desc">Roles and responsibilities</span></span>
           <svg class="icon route-card-chev" aria-hidden="true" focusable="false"><use href="#chev-r"></use></svg>
         </a></li><li><a class="route-card" href="#/about">
-          <span class="route-card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#user"></use></svg></span>
+          <span class="route-card-icon"><svg class="route-card-ring" aria-hidden="true" focusable="false"><use href="#ring-sketch"></use></svg><svg class="icon" aria-hidden="true" focusable="false"><use href="#user"></use></svg></span>
           <span class="route-card-text"><span class="route-card-no">Route 03</span><span class="route-card-title">About</span><span class="route-card-desc">Background, skills and interests</span></span>
           <svg class="icon route-card-chev" aria-hidden="true" focusable="false"><use href="#chev-r"></use></svg>
         </a></li><li><a class="route-card" href="#/workflow">
-          <span class="route-card-icon"><svg class="icon" aria-hidden="true" focusable="false"><use href="#compass"></use></svg></span>
+          <span class="route-card-icon"><svg class="route-card-ring" aria-hidden="true" focusable="false"><use href="#ring-sketch"></use></svg><svg class="icon" aria-hidden="true" focusable="false"><use href="#compass"></use></svg></span>
           <span class="route-card-text"><span class="route-card-no">Route 04</span><span class="route-card-title">Workflow</span><span class="route-card-desc">How I approach a project</span></span>
           <svg class="icon route-card-chev" aria-hidden="true" focusable="false"><use href="#chev-r"></use></svg>
         </a></li></ol>
@@ -118,7 +128,7 @@
       <div class="picker">
         <div class="picker-bar">
           <p class="picker-count" aria-hidden="true"><span class="pc-current">01</span> / <span class="pc-total">08</span></p>
-          <p class="picker-hint"><svg class="icon" aria-hidden="true" focusable="false"><use href="#swipe"></use></svg><span>Tap a sign or swipe the card</span></p>
+          <p class="picker-hint"><svg class="icon" aria-hidden="true" focusable="false"><use href="#swipe"></use></svg><span>Scroll the signs and tap one</span></p>
         </div>
         <ol class="picker-list" id="project-list" aria-label="Projects" role="list"></ol>
       </div>
@@ -143,7 +153,7 @@
       <div class="picker">
         <div class="picker-bar">
           <p class="picker-count" aria-hidden="true"><span class="pc-current">01</span> / <span class="pc-total">03</span></p>
-          <p class="picker-hint"><svg class="icon" aria-hidden="true" focusable="false"><use href="#swipe"></use></svg><span>Tap a sign or swipe the card</span></p>
+          <p class="picker-hint"><svg class="icon" aria-hidden="true" focusable="false"><use href="#swipe"></use></svg><span>Scroll the signs and tap one</span></p>
         </div>
         <ol class="picker-list picker-list--timeline" id="experience-list" aria-label="Roles" role="list"></ol>
       </div>
@@ -176,14 +186,15 @@
           <div class="read-more-body" id="about-more"></div>
         </details>
         <ul class="strengths" id="about-strengths" role="list"></ul>
+        <h3 class="mini-head">Education</h3>
+        <ol class="edu-list" role="list"><li><span class="edu-ic"><svg class="icon" aria-hidden="true" focusable="false"><use href="#grad"></use></svg></span><div class="edu-text"><p class="edu-title">BSc Web Design, Development &amp; Analytics <span class="edu-grade">2:1</span></p><p class="edu-place">Edge Hill University <span aria-hidden="true">·</span> <time datetime="2023-09">Sep 2023</time> – <time datetime="2026-06">Jun 2026</time></p></div></li><li><span class="edu-ic"><svg class="icon" aria-hidden="true" focusable="false"><use href="#code"></use></svg></span><div class="edu-text"><p class="edu-title">BTEC Nationals in Computer Science <span class="edu-grade">D*D*D*</span></p><p class="edu-place">West Lancashire College <span aria-hidden="true">·</span> <time datetime="2020-09">Sep 2020</time> – <time datetime="2023-06">Jun 2023</time></p></div></li><li><span class="edu-ic"><svg class="icon" aria-hidden="true" focusable="false"><use href="#book"></use></svg></span><div class="edu-text"><p class="edu-title">7 GCSEs (A–C incl. Maths &amp; English)</p><p class="edu-place">Upholland High School <span aria-hidden="true">·</span> <time datetime="2015-09">Sep 2015</time> – <time datetime="2020-06">Jun 2020</time></p></div></li></ol>
         <div class="about-links">
-          <p class="about-edu"><svg class="icon" aria-hidden="true" focusable="false"><use href="#grad"></use></svg><span>BSc (Hons) Web Design, Development &amp; Analytics</span></p>
           <a class="text-link" href="#/experience">See my experience<svg class="icon" aria-hidden="true" focusable="false"><use href="#arrow-r"></use></svg></a>
         </div>
       </div>
       <div class="about-b">
         <figure class="about-photo">
-          <img src="images/ui/about_me_photograph.webp" width="640" height="481" loading="lazy" decoding="async" alt="My landscape photograph of a mountain lake at sunset framed by pine trees, pinned to the page with a lime paperclip.">
+          <img src="images/ui/about_me_photograph.webp" srcset="images/ui/about_me_photograph-640.webp 640w, images/ui/about_me_photograph.webp 858w" sizes="(min-width: 1100px) 360px, (min-width: 900px) 40vw, 160px" width="858" height="645" loading="lazy" decoding="async" alt="My landscape photograph of a mountain lake at sunset framed by pine trees, pinned to the page with a lime paperclip.">
         </figure>
         <h3 class="mini-head">Key skills</h3>
         <div class="skill-tabs" id="skill-tabs"></div>
@@ -317,7 +328,7 @@
 </footer>
 
 <noscript><p class="noscript">This portfolio needs JavaScript to switch between routes. You can also see my work on <a href="https://github.com/BenjaminDThomas">GitHub</a>.</p></noscript>
-<script src="js/data.js?v=776bb557" defer></script>
-<script src="js/main.js?v=2682d8c6" defer></script>
+<script src="js/data.js?v=167d623e" defer></script>
+<script src="js/main.js?v=7d4f9e5e" defer></script>
 </body>
 </html>

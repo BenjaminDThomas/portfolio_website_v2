@@ -361,7 +361,7 @@
       id: "22-club",
       highlights: ["UX audit, competitor research and personas", "Each design change traced to an audit finding", "Lighthouse, WebAIM contrast checks and WebP images"],
       title: "22 Club: UX Redesign and Website Performance Optimisation",
-      shortTitle: "22 Club",
+      shortTitle: "22 Club Redesign",
       categories: ["ux", "data"],
       tags: ["UX/UI Design", "Web Design", "Website Optimisation", "Analytics"],
       start: "2025-10",
@@ -629,6 +629,8 @@
       organisation: "Ergometric",
       displayName: "Ergometric",
       role: "E-commerce Web Designer",
+      location: "Remote",
+      hours: "Part-time",
       start: "2024-02",
       end: "2025-09",
       type: "Employment · Shopify",
@@ -679,6 +681,8 @@
       organisation: "Garswood Vehicle Solutions",
       displayName: "Garswood Vehicle Solutions",
       role: "Automotive Mechanic, Summer Placement",
+      location: "Garswood, Wigan",
+      hours: "Part-time",
       start: "2021-06",
       end: "2021-09",
       type: "Summer placement",
@@ -816,34 +820,37 @@
   var keySkillTabs = [
     { key: "design", label: "Design", icon: "pencil", skills: [
       { name: "Figma", icon: "b-figma" }, { name: "UX Research", icon: "search" }, { name: "Usability Testing", icon: "users" },
-      { name: "Wireframing", icon: "panel" }, { name: "Prototyping", icon: "map" }, { name: "Accessibility", icon: "eye" }
+      { name: "Wireframing", icon: "panel" }, { name: "Prototyping", icon: "map" }, { name: "Accessibility", icon: "eye" },
+      { name: "User Journey Mapping", icon: "route" }, { name: "Competitor Analysis", icon: "target" }, { name: "Information Architecture", icon: "list" }
     ] },
     { key: "build", label: "Build", icon: "code", skills: [
       { name: "HTML5", icon: "b-html5" }, { name: "CSS3", icon: "b-css3" }, { name: "JavaScript", icon: "b-javascript" },
-      { name: "Shopify", icon: "b-shopify" }, { name: "GitHub", icon: "b-github" }, { name: "Netlify", icon: "b-netlify" }
+      { name: "Shopify", icon: "b-shopify" }, { name: "GitHub", icon: "b-github" }, { name: "Netlify", icon: "b-netlify" },
+      { name: "Responsive Development", icon: "play" }, { name: "API Integration", icon: "gear" }, { name: "Git Version Control", icon: "code" }
     ] },
     { key: "analyse", label: "Analyse", icon: "bars", skills: [
       { name: "Tableau", icon: "b-tableau" }, { name: "Excel", icon: "table" }, { name: "Lighthouse", icon: "b-lighthouse" },
-      { name: "Clarity", icon: "eye" }, { name: "Google Analytics", icon: "b-googleanalytics" }, { name: "On-Page SEO", icon: "search" }
+      { name: "Data Visualisation", icon: "chart-up" }, { name: "Google Analytics", icon: "b-googleanalytics" }, { name: "On-Page SEO", icon: "search" },
+      { name: "Data Cleaning", icon: "filter" }, { name: "Quantitative Analysis", icon: "bars" }, { name: "Qualitative Analysis", icon: "doc-lines" }
     ] }
   ];
 
   var skillGroups = [
     {
       heading: "UX/UI & Research",
-      items: ["Figma", "UX Research", "Wireframing", "High-Fidelity Prototyping", "User Flows", "Information Architecture", "Personas", "Empathy Maps", "User Journey Mapping", "Heuristic Evaluation", "Usability Testing", "Think-Aloud Testing", "Qualtrics", "Responsive Design", "Accessibility / WCAG"]
+      items: ["Figma", "UX Research", "Wireframing", "High-Fidelity Prototyping", "User Flows", "Information Architecture", "Personas", "Empathy Maps", "User Journey Mapping", "Competitor Analysis", "Heuristic Evaluation", "Usability Testing", "Think-Aloud Testing", "Qualtrics", "Responsive Design", "Accessibility / WCAG"]
     },
     {
       heading: "Web Design & Development",
-      items: ["HTML5", "CSS3", "JavaScript", "Shopify", "Git / GitHub", "Front-End Quality Assurance", "Responsive Layouts", "Interactive Interfaces", "Netlify", "Vercel", "Cloudflare", "AI-Assisted Development"]
+      items: ["HTML5", "CSS3", "JavaScript", "Shopify", "Git Version Control", "GitHub", "Responsive Development", "API Integration", "Front-End Quality Assurance", "Responsive Layouts", "Interactive Interfaces", "Netlify", "Vercel", "Cloudflare", "AI-Assisted Development"]
     },
     {
       heading: "Analytics & Optimisation",
-      items: ["Tableau", "Excel", "Data Cleaning", "KPI Reporting", "Data Visualisation", "Google Analytics", "Microsoft Clarity", "Google Lighthouse", "WebAIM", "Core Web Vitals", "On-Page SEO", "Performance Analysis", "User Behaviour Analysis"]
+      items: ["Tableau", "Excel", "Data Cleaning", "Quantitative Analysis", "Qualitative Analysis", "KPI Reporting", "Data Visualisation", "Google Analytics", "Microsoft Clarity", "Google Lighthouse", "WebAIM", "Core Web Vitals", "On-Page SEO", "Performance Analysis", "User Behaviour Analysis"]
     },
     {
       heading: "Foundational familiarity",
-      items: ["Python fundamentals", "SQL fundamentals", "Docker", "API concepts", "Power BI exposure"]
+      items: ["Python fundamentals", "SQL fundamentals", "Docker", "Power BI exposure"]
     }
   ];
 
