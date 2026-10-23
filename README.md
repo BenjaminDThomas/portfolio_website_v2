@@ -177,7 +177,7 @@ The project also builds upon lessons from my previous portfolio, with a stronger
 
 ## Live Website
 
-[View My Portfolio]( )
+[View My Portfolio](https://benjamin-thomas-portfolio-website.netlify.app/)
 
 ## Author
 
@@ -186,7 +186,5 @@ The project also builds upon lessons from my previous portfolio, with a stronger
 UX/UI Designer | Front-End Developer | Data Analytics
 
 [GitHub](https://github.com/BenjaminDThomas)
-
----
 
 *Designed as a journey through my work, experience and creative development.*
